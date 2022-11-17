@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Safety Stoplight</title>
+	</head>
+	<body>
+		<div class="textcanvas">
+			<p id="date" class="date"></p>
+			<p class="numlost" id="numlost"></p>
+			<p class="text">
+				Days Since Last Lost Time!<br /><br />Incidents Last Month
+			</p>
+			<p class="numincidents" id="numincidents"></p>
+		</div>
+		<div class="canvas">
+			<div class="background">
+				<img
+					src="./pngs/slide_background.png"
+					id="background"
+					width="1920"
+					height="1080"
+				/>
+			</div>
+			<div class="stoplight">
+				<img src="" id="stoplight" width="540" height="550" />
+			</div>
+			<div class="grid">
+				<div class="wrapper1">
+					<div class="box box1" id="box1"></div>
+					<div class="box box2" id="box2"></div>
+					<div class="box box3" id="box3"></div>
+					<div class="box box4" id="box4"></div>
+					<div class="box box5" id="box5"></div>
+					<div class="box box6" id="box6"></div>
+				</div>
+				<div class="wrapper2">
+					<div class="box box13" id="box10"></div>
+					<div class="box box14" id="box11"></div>
+					<div class="box box15" id="box12"></div>
+					<div class="box box16" id="box19"></div>
+					<div class="box box17" id="box20"></div>
+					<div class="box box18" id="box21"></div>
+				</div>
+				<div class="wrapper3">
+					<div class="box box25" id="box25"></div>
+					<div class="box box26" id="box26"></div>
+					<div class="box box27" id="box27"></div>
+					<div class="box box28" id="box28"></div>
+					<div class="box box29" id="box29"></div>
+					<div class="box box30" id="box30"></div>
+				</div>
+				<div class="wrapper4">
+					<div class="box box7" id="box7"></div>
+					<div class="box box8" id="box8"></div>
+					<div class="box box9" id="box9"></div>
+					<div class="box box10" id="box16"></div>
+					<div class="box box11" id="box17"></div>
+					<div class="box box12" id="box18"></div>
+				</div>
+				<div class="wrapper5">
+					<div class="box box19" id="box13"></div>
+					<div class="box box20" id="box14"></div>
+					<div class="box box21" id="box15"></div>
+					<div class="box box22" id="box22"></div>
+					<div class="box box23" id="box23"></div>
+					<div class="box box24" id="box24"></div>
+				</div>
+				<div class="box box31" id="box31"></div>
+			</div>
+		</div>
+		<script type="module" src="/public/getData.js"></script>
+		<script>
+			const today = new Date();
+
+			var input = fetch('data.csv');
+			console.log(input);
+
+			var data = [
+				['08/12/22', 'no'],
+				['08/14/22', 'no'],
+				['08/20/22', 'no'],
+				['08/25/22', 'no'],
+				['08/30/22', 'no'],
+				['9/1/22', 'no'],
+				['9/11/22', 'no'],
+				['9/16/22', 'no'],
+				['9/16/22', 'no'],
+				['9/16/22', 'no'],
+				['9/16/22', 'no'],
+				['9/16/22', 'no'],
+				['9/16/22', 'no'],
+				['9/16/22', 'no'],
+				['9/16/22', 'no'],
+				['9/16/22', 'no'],
+				['9/16/22', 'no'],
+				['9/16/22', 'no'],
+				['9/16/22', 'no'],
+				['9/16/22', 'no'],
+				['9/16/22', 'no'],
+				['9/22/22', 'no'],
+				['10/6/22', 'no'],
+			];
+
+			pic = './pngs/green.png';
+			numlost = 0;
+			numincidents = 0;
+
+			box = new Array(30);
+			for (let i = 0; i <= 30; i++) {
+				box[i] = document.getElementById('box' + (i + 1));
+			}
+
+			if (today.getDate() !== 31) {
+				box[30].style.border = 'black';
+			}
+
+			for (let i = 0; i <= 30; i++) {
+				if (i < today.getDate() - 1) {
+					box[i].style.backgroundColor = 'green';
+				}
+			}
+
+			LastDayTimeLost = new Date('08/08/22');
+			for (let i = 0; i < data.length; i++) {
+				const tempDate = new Date(data[i][0]);
+
+				if (tempDate.getMonth() == today.getMonth() - 1) {
+					numincidents++;
+				} else if (tempDate.getMonth() == today.getMonth()) {
+					if (data[i][0] == 'yes') {
+						box[tempDate.getDate() - 1].style.backgroundColor = 'red';
+					}
+				}
+
+				if (tempDate > LastDayTimeLost && data[i][1] == 'yes') {
+					LastDayTimeLost = tempDate;
+				}
+				if (tempDate == today) {
+				}
+			}
+			const DayinMilli = 86400000;
+			numlost = parseInt((today - LastDayTimeLost) / DayinMilli);
+
+			if (numlost == 0) {
+				pic = './pngs/red.png';
+				temp = today.getDate() - 1;
+				box[temp].style.backgroundColor = 'red';
+			} else {
+				pic = './pngs/green.png';
+			}
+			document.getElementById('stoplight').src = pic;
+
+			Date = new Date().toDateString();
+			document.getElementById('date').innerHTML = Date;
+
+			toString(numlost);
+			document.getElementById('numlost').innerHTML = numlost;
+			toString(numincidents);
+			document.getElementById('numincidents').innerHTML = numincidents;
+		</script>
+		<style>
+			body {
+				text-align: center;
+				color: #01b8f3;
+				background-color: black;
+				/*width: 100%;
+  height: 100%;*/
+			}
+
+			.textcanvas {
+				position: relative;
+				height: 550px;
+				width: 430px;
+				/*border: 5px dashed white;*/
+				z-index: 1;
+				top: 375px;
+			}
+			.date {
+				position: relative;
+				top: -30px;
+				font-size: 50px;
+			}
+
+			.numlost {
+				position: relative;
+				top: -130px;
+				font-size: 100px;
+			}
+
+			.text {
+				position: relative;
+				top: -230px;
+				font-size: 50px;
+			}
+
+			.numincidents {
+				position: relative;
+				top: -320px;
+				font-size: 100px;
+			}
+
+			.background {
+				position: absolute;
+				top: 0px;
+				left: 0px;
+				z-index: -1;
+			}
+			.stoplight {
+				position: absolute;
+				width: 558px;
+				height: 550px;
+				top: 410px;
+				left: 450px;
+				/*border: 5px dashed white;*/
+			}
+
+			.box {
+				border: 1px solid grey;
+				border-radius: 1px;
+			}
+			.grid {
+				position: absolute;
+				width: 600px;
+				height: 460px;
+				top: 650px;
+				left: 1050px;
+				/*border: 5px dashed white;*/
+			}
+			.wrapper1 {
+				position: relative;
+				top: 0px;
+				left: 0px;
+				width: 162px;
+				height: 110px;
+				display: grid;
+				grid-template-columns: repeat(3, 1fr);
+				grid-template-rows: repeat(2, auto);
+				gap: 2px;
+				margin-inline: auto;
+			}
+			.wrapper2 {
+				position: relative;
+				top: 2px;
+				left: 0px;
+				width: 162px;
+				height: 110px;
+				display: grid;
+				grid-template-columns: repeat(3, 1fr);
+				grid-template-rows: repeat(2, auto);
+				gap: 2px;
+				margin-inline: auto;
+			}
+			.wrapper3 {
+				position: relative;
+				top: 4px;
+				left: 0px;
+				width: 162px;
+				height: 110px;
+				display: grid;
+				grid-template-columns: repeat(3, 1fr);
+				grid-template-rows: repeat(2, auto);
+				gap: 2px;
+				margin-inline: auto;
+			}
+			.wrapper4 {
+				position: relative;
+				top: -218px;
+				left: -166px;
+				width: 162px;
+				height: 110px;
+				display: grid;
+				grid-template-columns: repeat(3, 1fr);
+				grid-template-rows: repeat(2, auto);
+				gap: 2px;
+				margin-inline: auto;
+			}
+			.wrapper5 {
+				position: relative;
+				top: -327px;
+				left: 166px;
+				width: 162px;
+				height: 110px;
+				display: grid;
+				grid-template-columns: repeat(3, 1fr);
+				grid-template-rows: repeat(2, auto);
+				gap: 2px;
+				margin-inline: auto;
+			}
+
+			.box.box31 {
+				position: relative;
+				width: 50px;
+				height: 50px;
+				border: 1px solid grey;
+				top: -280px;
+				left: 420px;
+			}
+		</style>
+	</body>
+</html>

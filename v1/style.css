@@ -1,0 +1,138 @@
+
+body {
+  text-align: center;
+  color: #01B8F3;
+  background-color: black;
+  /*width: 100%;
+  height: 100%;*/
+}
+
+.textcanvas {
+  position: relative;
+  height: 550px;
+  width: 430px;
+  /*border: 5px dashed white;*/
+  z-index: 1;
+  top: 375px;
+}
+.date{
+  position:relative;
+  top: -30px;
+  font-size: 50px;
+}
+
+.numlost {
+  position:relative;
+  top: -130px;
+  font-size: 100px;
+}
+
+.text {
+  position:relative;
+  top: -230px;
+  font-size: 50px;
+}
+
+.numincidents {
+  position:relative;
+  top: -320px;
+  font-size: 100px;
+}
+
+.background {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  z-index: -1;
+}
+.stoplight {
+  position:absolute;
+  width: 558px;
+  height: 550px;
+  top: 410px;
+  left: 450px;
+  /*border: 5px dashed white;*/
+}
+
+.box {
+  border: 1px solid grey;
+  border-radius: 1px;
+}
+.grid {
+  position: absolute;
+  width: 600px;
+  height: 460px;
+  top: 650px;
+  left: 1050px;
+  /*border: 5px dashed white;*/
+}
+.wrapper1 {
+  position: relative;
+  top: 0px;
+  left: 0px;
+  width: 162px;
+  height: 110px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(2, auto);
+  gap: 2px;
+  margin-inline: auto;
+}
+.wrapper2 {
+  position: relative;
+  top: 2px;
+  left: 0px;
+  width: 162px;
+  height: 110px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(2, auto);
+  gap: 2px;
+  margin-inline: auto;
+}
+.wrapper3 {
+  position: relative;
+  top: 4px;
+  left: 0px;
+  width: 162px;
+  height: 110px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(2, auto);
+  gap: 2px;
+  margin-inline: auto;
+}
+.wrapper4 {
+  position: relative;
+  top: -218px;
+  left: -166px;
+  width: 162px;
+  height: 110px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(2, auto);
+  gap: 2px;
+  margin-inline: auto;
+}
+.wrapper5 {
+  position: relative;
+  top: -327px;
+  left: 166px;
+  width: 162px;
+  height: 110px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(2, auto);
+  gap: 2px;
+  margin-inline: auto;
+}
+
+.box.box31 {
+  position:relative;
+  width: 50px;
+  height: 50px;
+  border: 1px solid grey;
+  top: -280px;
+  left: 420px;
+}
+
